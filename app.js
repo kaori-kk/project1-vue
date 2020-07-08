@@ -46,6 +46,14 @@ new Vue({
         this.loading = false;
         this.result = response.data[key]
       })
+    },
+    watch: {
+      from(){
+        this.result = 0;
+      },
+      to(){
+        this.result = 0;
+      }
     }
   }
 })
