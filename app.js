@@ -2,7 +2,7 @@ new Vue({
   el: "#app",
   data: {
     currencies: {},
-    amount: null,
+    amount: 0,
     from: "EUR",
     to: "USD",
     api: "bb59a43164ca670b9c14",
@@ -17,6 +17,9 @@ new Vue({
     },
     culculateResult(){
       return (Number(this.amount) * this.result).toFixed(2);
+    },
+    disabled(){
+      return this.amount === 0 || !this.amount;
     }
   },
   methods: {
