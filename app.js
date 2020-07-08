@@ -6,7 +6,8 @@ new Vue({
     from: "EUR",
     to: "USD",
     api: "bb59a43164ca670b9c14",
-    result: 0
+    result: 0,
+    loading: false
   },
   mounted(){
     this.getCurrencies()
@@ -19,7 +20,7 @@ new Vue({
       return (Number(this.amount) * this.result).toFixed(2);
     },
     disabled(){
-      return this.amount === 0 || !this.amount;
+      return this.amount === 0 || !this.amount || this.loading;
     }
   },
   methods: {
@@ -38,9 +39,11 @@ new Vue({
     },
     convertCurrency(){
       const key = `${this.from}_${this.to}`
+      this.loading = true;
       axios.get(`http://free.currencyconverterapi.com/api/v6/convert?q=${key}&compact=ultra&apiKey=${this.api}`)
       .then(response => {
         console.log(response)
+        this.loading = false;
         this.result = response.data[key]
       })
     }
